@@ -1,54 +1,50 @@
-// const { generateImage } = require("../../controllers/openaiController")
-
 function onSubmit(e) {
   e.preventDefault()
 
-  document.querySelector('.msg').textContent=''
+  document.querySelector('.msg').textContent = ''
   document.querySelector('#image').src = ''
 
   const prompt = document.querySelector('#prompt').value
   const size = document.querySelector('#size').value
 
-  if(prompt === '') {
+  if (prompt === '') {
     alert('Please add some text')
-    return
+    return;
   }
-  
-  // console.log(prompt, size)
-
-  const imageUrl = data.data;
-
-  document.querySelector('#image').src
 
   generateImageRequest(prompt, size)
 }
 
-async function generateImageRequest(prompt, size){
+async function generateImageRequest(prompt, size) {
   try {
-    showSpinner()
+    showSpinner();
+
     const response = await fetch('/openai/generateimage', {
-      method:'POST',
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         prompt,
-        size
-      })
-    })
+        size,
+      }),
+    });
 
-    if(!response.ok){
+    if (!response.ok) {
       removeSpinner();
-      throw new Error('That image could not be generated.')
+      throw new Error('That image could not be generated')
     }
 
     const data = await response.json()
     console.log(data)
-    removeSpinner()
 
+    const imageUrl = data.data
 
+    document.querySelector('#image').src = imageUrl
+
+    removeSpinner();
   } catch (error) {
-    document.querySelector('.msg').textContent = errpr;
+    document.querySelector('.msg').textContent = error
   }
 }
 
@@ -59,6 +55,5 @@ function showSpinner() {
 function removeSpinner() {
   document.querySelector('.spinner').classList.remove('show')
 }
-
 
 document.querySelector('#image-form').addEventListener('submit', onSubmit)
