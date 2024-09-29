@@ -33,16 +33,19 @@
         <form id="image-form">
           <h2>Describe an image</h2>
           <div class="form-control">
-            <input type="text" id="prompt" placeholder="Example: John Wick in a Superman costume" />
+            <input
+              type="text"
+              id="prompt"
+              placeholder="Example: John Wick in a Superman costume"
+            />
           </div>
           <!-- size -->
           <h2>Choose image size</h2>
           <div class="form-control">
-
             <select name="size" id="size">
-              <option value="small">Small (256x256)</option>
-              <option value="medium" selected>Medium (512x512)</option>
-              <option value="large">Large (1024x1024)</option>
+              <option value="1024x1024">1024x1024 pixels</option>
+              <option value="1024x1792" selected>1024x1792 pixels</option>
+              <option value="1792x1024">1792x1024 pixels</option>
             </select>
           </div>
           <button type="submit" class="btn">Generate</button>
